@@ -1,4 +1,5 @@
-function validateForm() {
+async function validateForm() {
+
     let returnValue = true;
     let word = document.getElementById("word-input");
     let author = document.getElementById("author-input");
@@ -17,13 +18,29 @@ function validateForm() {
     author.style.borderColor = "#257cd1";
     const nameRegex = /^[a-zA-Z]+$/; /* alpha characters only, + is for one or more letters */
 
+    const url = "http://127.0.0.1:3000";
+    const fetchResponse = await fetch(url);
+    const jsonResponse = await fetchResponse.json();
+    let isDuplicate = false;
+
+    jsonResponse.forEach(ch => {
+        if (ch.word === word.value.toLowerCase()) {
+            isDuplicate = true;
+        }
+    });
+
+    if (word.value != "" && isDuplicate) {
+        errorContainer.style.display = "block";
+        errors.innerHTML += `<li>Someone already added that word! Please pick a new one.</li>`;
+        word.style.backgroundColor = "#f5caca";
+        word.style.borderColor = "#ba0000";
+        returnValue = false;
+    }
+
     /* form returns false if word length is less than 2, prints styled error message to DOM  */
     if (word.value.length < 2) {
         errorContainer.style.display = "block";
-
-        if (word.value.length < 2) {
-            errors.innerHTML += `<li>Word must contain at least 2 characters.</li>`;
-        } 
+        errors.innerHTML += `<li>Word must contain at least 2 characters.</li>`;
 
         word.style.backgroundColor = "#f5caca";
         word.style.borderColor = "#ba0000";
@@ -47,7 +64,7 @@ function validateForm() {
     
     /* if no errors, show success message */
     if (returnValue === true) {
-        success.innerHTML = "<p>Success! The form was submitted.</p>";
+        success.innerHTML = "<p>Success! Your response was recorded.</p>";
         createCharade();
         setTimeout(function() {
             success.innerHTML = "";
@@ -59,8 +76,9 @@ function validateForm() {
             play_btn.style.display = "inline-block";
             create_btn.style.display = "inline-block";
         }, 2000)
-    }
+    } 
 }
+
 
 async function createCharade() {
     
@@ -84,7 +102,7 @@ async function createCharade() {
     const save_btn = document.getElementById("save-btn");
     const cancel_create_btn = document.getElementById("cancel-create-btn");
     const form = document.getElementById("create-form");
-    
+
     save_btn.style.display = "none";
     cancel_create_btn.style.display = "none";
     form.style.display = "none";

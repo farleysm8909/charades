@@ -15,6 +15,10 @@ async function getCharadesByAuth(auth) {
     const url2 = `http://127.0.0.1:3000/${auth}`; // charades by given author
     const fetchResponse2 = await fetch(url2);
     const jsonResponse2 = await fetchResponse2.json();
+
+    const container = document.getElementById("container");
+    container.style.display = "block";
+    
     let tbody = document.getElementById("tbody");
     tbody.innerHTML = "";
     let count = 0;

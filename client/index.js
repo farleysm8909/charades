@@ -71,7 +71,6 @@ if ( get_auth_btn ) {
         // play_btn.style.display = "none";
         // create_btn.style.display = "none";
         auth_form.style.display = "block";
-        container.style.display = "block";
         getCharades();
     });
 } else {
