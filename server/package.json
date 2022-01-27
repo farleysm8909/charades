@@ -1,0 +1,21 @@
+{
+  "name": "charades",
+  "version": "1.0.0",
+  "description": "A free online charades game",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "javascript",
+    "express",
+    "mongoose"
+  ],
+  "author": "Samantha Farley (sfarley@bu.edu)",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

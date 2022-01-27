@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="style.css" rel="stylesheet">
+    <title>Charades</title>
+</head>
+<body>
+    <h1>Let's Play Charades</h1>
+    <button id="create-char-btn" class="btn btn-primary">Create</button>
+    <button id="get-char-by-auth-btn" class="btn btn-secondary">My Charades</button>
+    <button id="play-btn" class="btn btn-success">Play!</button>
+
+    <section id="success-msg"> <!--Find a way to make the form disappear slowly?-->
+    </section>
+
+    <form id="create-form">
+        <div class="form-group">
+            <label for="word-input">Charade Word(s)</label>
+            <input type="text" class="form-control" id="word-input" aria-describedby="wordHelp" placeholder="Enter word(s)" required>
+            <small id="wordHelp" class="form-text text-muted">Type a single or multiple words for other players to guess.</small>
+        </div>
+        <div class="form-group">
+            <label for="author-input">Author</label>
+            <input type="text" class="form-control" id="author-input" placeholder="Enter your first name" required>
+        </div>
+        <section id="error-msg">
+            <ul id="error-list">
+            </ul>
+          </section>
+    </form>
+    <button id="save-btn" class="btn btn-success">Save</button>
+    <button id="cancel-create-btn" class="btn btn-secondary">Cancel</button>
+
+    <form id="author-form">
+        <div class="form-group" id="auth-form-group">
+            <label for="author-select">Please select your name</label>
+            <select id="author-select" class="select">
+                <option>Select Your Name</option>
+            </select>
+        </div>
+    </form>
+
+    <div id="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-12"><h2>My Charades</h2></div>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Word(s)</th>
+                        <th>Played Yet?</th>
+                        <th>Author</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"> 
+                </tbody>
+            </table>
+        </div>
+    </div>     
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>
