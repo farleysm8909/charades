@@ -62,6 +62,25 @@ router.get("/:author", async (req, res) => {
     }
 });
 
+// get random charade
+router.get("/play/:author", async (req, res) => {
+    try {
+        // Get one random document matching {a: 10} from the mycoll collection.https://stackoverflow.com/questions/2824157/random-record-from-mongodb
+        //let random_charade = await Charade.aggregate([
+            //{ $match: { author: req.params.author.toLowerCase() } },
+            //{ $sample: { size: 1 } } // this not working?
+        //]);
+        let random_charade = await Charade.findOne({ $and: [{author: req.params.author.toLowerCase()}, {used: false}] });
+        console.log(random_charade.word);
+        
+        random_charade.used = true;
+        const saved_recipe = await random_charade.save();
+        res.status(200).send(saved_recipe);
+    } catch(err) {
+        res.status(404).send({error: "Random charade not found!"});
+    }
+});
+
 // UPDATE
 
 

@@ -1,15 +1,4 @@
-async function deleteCharade(auth, word) {
-    const url = `http://127.0.0.1:3000/${word}`;
-    const config = {
-        method: "delete", 
-        body: null
-    };
-
-    const fetchResponse = await fetch(url, config);
-    getCharades();
-    getCharadesByAuth(auth);
-}
-
+import { deleteCharade } from "./delete_charade.js";
 
 async function getCharadesByAuth(auth) {
     const url2 = `http://127.0.0.1:3000/${auth}`; // charades by given author
@@ -40,7 +29,6 @@ async function getCharadesByAuth(auth) {
         const word = $(this).closest('tr').find('td:nth-child(1)').text(); // https://stackoverflow.com/questions/20641146/how-to-get-a-value-of-the-closest-td-with-class-on-button-click/20641164
         deleteCharade(auth, word);
     });
-    
 }
 
 
@@ -82,4 +70,4 @@ async function getCharades() {
 }
 
 
-export { getCharades };
+export { getCharades, getCharadesByAuth };

@@ -1,5 +1,7 @@
 import { getCharades } from "./get_charades.js";
 
+// validate form (client-side)
+// if no problems, call createCharade()
 async function validateForm() {
 
     let returnValue = true;
@@ -66,7 +68,7 @@ async function validateForm() {
     
     /* if no errors, show success message */
     if (returnValue === true) {
-        success.innerHTML = "<p>Success! Your response was recorded.</p>";
+        success.innerHTML = "<p>&#9989; Success! Your response was recorded.</p>";
         createCharade();
         setTimeout(function() {
             success.innerHTML = "";
@@ -80,7 +82,7 @@ async function validateForm() {
     } 
 }
 
-
+// posts to db, resets various vars for UI
 async function createCharade() {
     
     const data = {

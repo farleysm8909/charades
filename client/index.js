@@ -1,5 +1,6 @@
 import { validateForm } from "./modules/create_charade.js";
 import { getCharades } from "./modules/get_charades.js";
+import { playCharades } from "./modules/play_charades.js";
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -22,22 +23,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-// create charade btn (display form)
+   // create charade btn (display form)
    if ( create_btn ) {
        create_btn.addEventListener("click", () => {
-        //get_auth_btn.style.display = "none";
-        play_btn.style.display = "none";
-        create_btn.style.display = "none";
-        auth_form.style.display = "none";
-        container.style.display = "none";
-        save_btn.style.display = "inline-block";
-        cancel_create_btn.style.display = "inline-block";
-        form.style.display = "block";
-        error_msg.style.display = "none";
-        word.backgroundColor = "#ffffff";
-        word.borderColor = "#257cd1";
-        author.backgroundColor = "#ffffff";
-        author.borderColor = "#257cd1";
+            play_btn.style.display = "none";
+            create_btn.style.display = "none";
+            auth_form.style.display = "none";
+            container.style.display = "none";
+            save_btn.style.display = "inline-block";
+            cancel_create_btn.style.display = "inline-block";
+            form.style.display = "block";
+            error_msg.style.display = "none";
+            word.backgroundColor = "#ffffff";
+            word.borderColor = "#257cd1";
+            author.backgroundColor = "#ffffff";
+            author.borderColor = "#257cd1";
        });
    } else {
        console.error(`Unable to bind to target! Debug Required.`);
@@ -45,41 +45,39 @@ window.addEventListener('DOMContentLoaded', () => {
 
    // save charade btn (display form)
    if ( save_btn ) {
-    save_btn.addEventListener("click", () => {
-     validateForm();
-    });
-} else {
-    console.error(`Unable to bind to target! Debug Required.`);
-}
+        save_btn.addEventListener("click", () => {
+            validateForm();
+        });
+    } else {
+        console.error(`Unable to bind to target! Debug Required.`);
+    }
 
-   // cancel create charade btn (return home)
-   if ( cancel_create_btn ) {
-    cancel_create_btn.addEventListener("click", () => {
-     //get_auth_btn.style.display = "inline-block";
-     getCharades();
-     play_btn.style.display = "inline-block";
-     create_btn.style.display = "inline-block";
-     save_btn.style.display = "none";
-     cancel_create_btn.style.display = "none";
-     form.style.display = "none";
-    });
-} else {
-    console.error(`Unable to bind to target! Debug Required.`);
-}
+    // cancel create charade btn (return home)
+    if ( cancel_create_btn ) {
+        cancel_create_btn.addEventListener("click", () => {
+            getCharades();
+            play_btn.style.display = "inline-block";
+            create_btn.style.display = "inline-block";
+            save_btn.style.display = "none";
+            cancel_create_btn.style.display = "none";
+            form.style.display = "none";
+        });
+    } else {
+        console.error(`Unable to bind to target! Debug Required.`);
+    }
 
-
-
-// // get my charades btn (list charades by author)
-// if ( get_auth_btn ) {
-//     get_auth_btn.addEventListener("click", () => {
-//         // get_auth_btn.style.display = "none";
-//         // play_btn.style.display = "none";
-//         // create_btn.style.display = "none";
-//         auth_form.style.display = "block";
-//         getCharades();
-//     });
-// } else {
-//     console.error(`Unable to bind to target! Debug Required.`);
-// }
+    // create charade btn (display form)
+    if ( play_btn ) {
+        play_btn.addEventListener("click", () => {
+            const author = select.options[select.selectedIndex].text; // Text of the selected value, need to store in local storage?
+            play_btn.style.display = "none";
+            create_btn.style.display = "none";
+            auth_form.style.display = "none";
+            container.style.display = "none";
+            playCharades(author);
+        });
+    } else {
+        console.error(`Unable to bind to target! Debug Required.`);
+    }
 
 });
