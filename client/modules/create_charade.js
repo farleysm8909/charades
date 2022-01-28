@@ -1,3 +1,5 @@
+import { getCharades } from "./get_charades.js";
+
 async function validateForm() {
 
     let returnValue = true;
@@ -69,12 +71,11 @@ async function validateForm() {
         setTimeout(function() {
             success.innerHTML = "";
             const create_btn = document.getElementById("create-char-btn");
-            const get_auth_btn = document.getElementById("get-char-by-auth-btn");
             const play_btn = document.getElementById("play-btn");
             
-            get_auth_btn.style.display = "inline-block";
             play_btn.style.display = "inline-block";
             create_btn.style.display = "inline-block";
+            getCharades();
         }, 2000)
     } 
 }
@@ -102,10 +103,14 @@ async function createCharade() {
     const save_btn = document.getElementById("save-btn");
     const cancel_create_btn = document.getElementById("cancel-create-btn");
     const form = document.getElementById("create-form");
+    const play_btn = document.getElementById("play-btn");
+    const select = document.getElementById("author-select");
 
+    select.disabled = false;
     save_btn.style.display = "none";
     cancel_create_btn.style.display = "none";
     form.style.display = "none";
+    play_btn.disabled = false;    
 }
 
 

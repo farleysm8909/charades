@@ -10,8 +10,9 @@
 </head>
 <body>
     <h1>Let's Play Charades!</h1>
+    <p>To join the game, start by creating a charade</p>
     <button id="create-char-btn" class="btn btn-primary">Create</button>
-    <button id="get-char-by-auth-btn" class="btn btn-secondary">My Charades</button>
+    <!-- <button id="get-char-by-auth-btn" class="btn btn-secondary">My Charades</button> -->
     <button id="play-btn" class="btn btn-success">Play!</button>
 
     <section id="success-msg"> <!--Find a way to make the form disappear slowly?-->
@@ -37,7 +38,7 @@
 
     <form id="author-form">
         <div class="form-group" id="auth-form-group">
-            <label for="author-select">Please select your name</label>
+            <label for="author-select">Once you have created at least one charade, please select your name</label><br>
             <select id="author-select" class="select">
                 <option>Select Your Name</option>
             </select>

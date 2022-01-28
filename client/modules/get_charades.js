@@ -47,6 +47,7 @@ async function getCharadesByAuth(auth) {
 
 async function getCharades() {
     const auth_form = document.getElementById("author-form");
+    auth_form.style.display = "block";
     const sel = document.getElementById("author-select");
 
     const url = "http://127.0.0.1:3000";
