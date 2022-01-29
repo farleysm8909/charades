@@ -63,25 +63,45 @@ router.get("/:author", async (req, res) => {
 });
 
 // get random charade
-router.get("/play/:author", async (req, res) => {
+router.get("/play/charade", async (req, res) => {
     try {
         // Get one random document matching {a: 10} from the mycoll collection.https://stackoverflow.com/questions/2824157/random-record-from-mongodb
-        //let random_charade = await Charade.aggregate([
-            //{ $match: { author: req.params.author.toLowerCase() } },
-            //{ $sample: { size: 1 } } // this not working?
-        //]);
-        let random_charade = await Charade.findOne({ $and: [{author: req.params.author.toLowerCase()}, {used: false}] });
-        console.log(random_charade.word);
-        
+        // let random_charade = await Charade.aggregate([ 
+        //     {$match: {used: false}},
+        //     {$sample: {size: 1}}
+        // ]);
+        //let random_charade = await Charade.findOne({ $and: [{author: req.params.author.toLowerCase()}, {used: false}] });
+        //console.log(random_charade.word);
+        console.log("in server");
+        let count = await Charade.find({used: false}).count();
+        console.log(count);
+
+        const rand_index = Math.floor(Math.random()*count);
+        const unused_charades = await Charade.find({used: false});
+        let random_charade = unused_charades[rand_index];
         random_charade.used = true;
-        const saved_recipe = await random_charade.save();
-        res.status(200).send(saved_recipe);
+        console.log(random_charade.word);
+        const saved_charade = await random_charade.save();
+        res.status(200).send(saved_charade);
     } catch(err) {
         res.status(404).send({error: "Random charade not found!"});
     }
 });
 
 // UPDATE
+
+// make used = false if skipped
+router.put("/play/:word", async (req, res) => {
+    try {
+        // put original back in pool of available charades
+        let charade = await Charade.find({word: req.params.word});
+        charade.used = false;
+        const saved_charade = await charade.save();
+        res.status(200).send(saved_charade);
+    } catch(err) {
+        res.status(404).send({error: "Skipped charade not updated!"});
+    }
+});
 
 
 // DELETE 

@@ -20,7 +20,7 @@ async function validateForm() {
     word.style.borderColor = "#257cd1";
     author.style.backgroundColor = "#ffffff";
     author.style.borderColor = "#257cd1";
-    const nameRegex = /^[a-zA-Z]+$/; /* alpha characters only, + is for one or more letters */
+    const nameRegex = /^[a-zA-Z ]+$/; /* alpha characters only, + is for one or more letters */
 
     const url = "http://127.0.0.1:3000";
     const fetchResponse = await fetch(url);

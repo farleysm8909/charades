@@ -69,15 +69,29 @@ window.addEventListener('DOMContentLoaded', () => {
     // create charade btn (display form)
     if ( play_btn ) {
         play_btn.addEventListener("click", () => {
-            const author = select.options[select.selectedIndex].text; // Text of the selected value, need to store in local storage?
+            //const author = select.options[select.selectedIndex].text; // Text of the selected value, need to store in local storage?
             play_btn.style.display = "none";
             create_btn.style.display = "none";
             auth_form.style.display = "none";
             container.style.display = "none";
-            playCharades(author);
+            playCharades();
         });
     } else {
         console.error(`Unable to bind to target! Debug Required.`);
     }
+
+    // skip charade btn (generate new charade)
+            // const skip_btn = document.getElementById("skip-btn");
+            // if ( skip_btn ) {
+            //     skip_btn.addEventListener("click", () => {
+            //         skipCharade(word);
+            //     });
+            // } else {
+            //     console.error(`Unable to bind to target! Debug Required.`);
+            // }
+
+
+
+
 
 });

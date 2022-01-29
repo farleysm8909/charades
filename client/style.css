@@ -2,8 +2,30 @@ body {
     text-align: center;
 }
 
-body > * {
-    margin-bottom: 20px;
+p, #author-select-label {
+    margin: 20px;
+}
+
+#play-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 60pt;
+    background-color: #3ff58e;
+    margin: 0;
+    height: 0;
+}
+
+#done-btn, #skip-btn {
+    width: 150px;
+    padding: 10px;
+    font-size: 30pt;
+    margin: 50px 20px;
+}
+
+#countdown {
+    font-size: 60pt;
 }
 
 .btn {

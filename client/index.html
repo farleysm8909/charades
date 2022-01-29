@@ -9,10 +9,11 @@
     <title>Charades</title>
 </head>
 <body>
+<main>
+    <div id="play-container"></div>
     <h1>Let's Play Charades!</h1>
     <p>To join the game, start by creating a charade</p>
     <button id="create-char-btn" class="btn btn-primary">Create</button>
-    <!-- <button id="get-char-by-auth-btn" class="btn btn-secondary">My Charades</button> -->
     <button id="play-btn" class="btn btn-success">Play!</button>
 
     <section id="success-msg"> <!--Find a way to make the form disappear slowly?-->
@@ -38,7 +39,7 @@
 
     <form id="author-form">
         <div class="form-group" id="auth-form-group">
-            <label for="author-select">Once you have created at least one charade, please select your name</label><br>
+            <label for="author-select" id="author-select-label">Once you have created at least one charade, please select your name</label><br>
             <select id="author-select" class="select">
                 <option>Select Your Name</option>
             </select>
@@ -65,8 +66,10 @@
                 </tbody>
             </table>
         </div>
-    </div>     
+    </div>  
     
+    
+</main>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
