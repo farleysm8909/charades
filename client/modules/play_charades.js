@@ -5,7 +5,6 @@ async function playCharades() {
     const jsonResponse = await fetchResponse.json();
 
     const word = jsonResponse.word;
-    console.log(word);
 
     let main = document.querySelector("main");
     main.innerHTML = `<div id="play-container"></div>`;

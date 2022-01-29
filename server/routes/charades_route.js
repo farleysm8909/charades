@@ -72,10 +72,7 @@ router.get("/play/charade", async (req, res) => {
         // ]);
         //let random_charade = await Charade.findOne({ $and: [{author: req.params.author.toLowerCase()}, {used: false}] });
         //console.log(random_charade.word);
-        console.log("in server");
         let count = await Charade.find({used: false}).count();
-        console.log(count);
-
         const rand_index = Math.floor(Math.random()*count);
         const unused_charades = await Charade.find({used: false});
         let random_charade = unused_charades[rand_index];
