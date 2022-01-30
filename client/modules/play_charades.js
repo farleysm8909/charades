@@ -7,7 +7,7 @@ async function playCharades() {
     const word = jsonResponse.word;
 
     let main = document.querySelector("main");
-    main.innerHTML = `<div id="play-container"></div>`;
+    main.style.display = "none";
     let play_screen = document.getElementById("play-container");
     play_screen.style.height = "100vh";
 
@@ -23,7 +23,7 @@ async function playCharades() {
             <h1 id="countdown">${word}</h1>
             <div id="play-btns">
                 <button id="skip-btn" class="btn btn-secondary">Skip</button>
-                <button id="done-btn" class="btn btn-primary">Done</button>
+                <button id="done-btn" class="btn btn-primary" onclick="done()">Done</button>
             </div>
             `;
         } else if (count === 0) {

@@ -80,6 +80,7 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error(`Unable to bind to target! Debug Required.`);
     }
 
+
     // skip charade btn (generate new charade)
             // const skip_btn = document.getElementById("skip-btn");
             // if ( skip_btn ) {
