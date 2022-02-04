@@ -62,7 +62,7 @@ router.get("/:author", async (req, res) => {
     }
 });
 
-// get random charade
+// get random, unused charade
 router.get("/play/charade", async (req, res) => {
     try {
         // Get one random document matching {a: 10} from the mycoll collection.https://stackoverflow.com/questions/2824157/random-record-from-mongodb
@@ -77,8 +77,8 @@ router.get("/play/charade", async (req, res) => {
         const unused_charades = await Charade.find({used: false});
         let random_charade = unused_charades[rand_index];
         random_charade.used = true;
-        console.log(random_charade.word);
         const saved_charade = await random_charade.save();
+        console.log(random_charade.used);
         res.status(200).send(saved_charade);
     } catch(err) {
         res.status(404).send({error: "Random charade not found!"});
@@ -92,9 +92,12 @@ router.put("/play/:word", async (req, res) => {
     try {
         // put original back in pool of available charades
         let charade = await Charade.find({word: req.params.word});
+        console.log(req.params.word);
+        console.log(charade.used); // undefined
         charade.used = false;
+        console.log(charade.used); // false
         const saved_charade = await charade.save();
-        res.status(200).send(saved_charade);
+        res.status(200).send(saved_charade); //{message: "Charade skipped!"}
     } catch(err) {
         res.status(404).send({error: "Skipped charade not updated!"});
     }

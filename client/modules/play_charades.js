@@ -23,9 +23,36 @@ async function playCharades() {
             <h1 id="countdown">${word}</h1>
             <div id="play-btns">
                 <button id="skip-btn" class="btn btn-secondary">Skip</button>
-                <button id="done-btn" class="btn btn-primary" onclick="done()">Done</button>
+                <button id="done-btn" class="btn btn-primary">Done</button>
             </div>
             `;
+            // add skip btn event listener
+            const skip_btn = document.getElementById("skip-btn");
+            if ( skip_btn ) {
+                skip_btn.addEventListener("click", () => {
+                    skipCharade(word);
+                });
+            } else {
+                console.error(`Unable to bind to target! Debug Required.`);
+            }
+
+            // add done btn event listener
+            const done_btn = document.getElementById("done-btn");
+            if ( done_btn ) {
+                done_btn.addEventListener("click", () => {
+                    document.querySelector("main").style.display = "block";   
+                    document.getElementById("play-container").style.height = 0; 
+                    document.getElementById("create-char-btn").style.display = "inline-block";
+                    document.getElementById("play-btn").style.display = "inline-block";
+                    document.getElementById("author-form").style.display = "block";
+                    skip_btn.style.display = "none";
+                    done_btn.style.display = "none";
+                    document.getElementById("countdown").style.display = "none";
+                });
+            } else {
+                console.error(`Unable to bind to target! Debug Required.`);
+            }
+
         } else if (count === 0) {
             play_screen.innerHTML = `<h1 id="countdown">GO!</h1>`;
         } else {
@@ -35,30 +62,31 @@ async function playCharades() {
     }, 1000);
 }
 
-// async function skipCharade(word) {
-//     console.log("in skip charade");
+async function skipCharade(word) {
+    console.log("in skip charade");
 
-//     playCharades();
+    playCharades(); // get new charade before resetting old charade in db
 
-//     const url = `http://127.0.0.1:3000/play/${word}`;
+    word = word.toLowerCase();
+    const url = `http://127.0.0.1:3000/play/${word}`;
 
-//     const data = {
-//         word:       word
-//     };
+    const data = {
+        word:       word
+    };
 
-//     const config = {
-//         method: "put",
-//         mode: "cors", 
-//         cache: "no-cache", 
-//         headers: {"Content-Type": "application/json"},
-//         body: JSON.stringify(data)
-//     };
+    const config = {
+        method: "put",
+        mode: "cors", 
+        cache: "no-cache", 
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    };
 
-//     const fetchResponse = await fetch(url, config);
-//     const jsonResponse = await fetchResponse.json();
+    const fetchResponse = await fetch(url, config);
+    const jsonResponse = await fetchResponse.json();
+    console.log(jsonResponse.used); // undefined
+}
 
-// }
 
 
-
-export { playCharades };
+export { playCharades, skipCharade };

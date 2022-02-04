@@ -82,14 +82,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     // skip charade btn (generate new charade)
-            // const skip_btn = document.getElementById("skip-btn");
-            // if ( skip_btn ) {
-            //     skip_btn.addEventListener("click", () => {
-            //         skipCharade(word);
-            //     });
-            // } else {
-            //     console.error(`Unable to bind to target! Debug Required.`);
-            // }
+    // $(document).on("click", "#skip-btn", () => {
+    //     skipCharade(chosen_charade);
+    // });
+
+
+    // const skip_btn = document.getElementById("skip-btn");
+    // if ( skip_btn ) {
+    //     skip_btn.addEventListener("click", () => {
+    //         skipCharade(chosen_charade);
+    //     });
+    // } else {
+    //     console.error(`Unable to bind to target! Debug Required.`);
+    // }
+
+    
 
 
 
