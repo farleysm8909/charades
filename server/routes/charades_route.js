@@ -78,7 +78,6 @@ router.get("/play/charade", async (req, res) => {
         let random_charade = unused_charades[rand_index];
         random_charade.used = true;
         const saved_charade = await random_charade.save();
-        console.log(random_charade.used);
         res.status(200).send(saved_charade);
     } catch(err) {
         res.status(404).send({error: "Random charade not found!"});
@@ -88,16 +87,16 @@ router.get("/play/charade", async (req, res) => {
 // UPDATE
 
 // make used = false if skipped
-router.put("/play/:word", async (req, res) => {
+router.put("/:word", async (req, res) => {
     try {
-        // put original back in pool of available charades
-        let charade = await Charade.find({word: req.params.word});
-        console.log(req.params.word);
-        console.log(charade.used); // undefined
-        charade.used = false;
-        console.log(charade.used); // false
+        let charade = await Charade.findOne({word: req.params.word});
+
+        charade.word        = req.body.word;
+        charade.author      = req.body.author;
+        charade.used        = false;         // put original back in pool of available charades by resetting used = false
+
         const saved_charade = await charade.save();
-        res.status(200).send(saved_charade); //{message: "Charade skipped!"}
+        res.status(200).send(saved_charade);
     } catch(err) {
         res.status(404).send({error: "Skipped charade not updated!"});
     }

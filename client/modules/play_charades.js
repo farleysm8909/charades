@@ -5,6 +5,7 @@ async function playCharades() {
     const jsonResponse = await fetchResponse.json();
 
     const word = jsonResponse.word;
+    const author = jsonResponse.author;
 
     let main = document.querySelector("main");
     main.style.display = "none";
@@ -30,7 +31,7 @@ async function playCharades() {
             const skip_btn = document.getElementById("skip-btn");
             if ( skip_btn ) {
                 skip_btn.addEventListener("click", () => {
-                    skipCharade(word);
+                    skipCharade(word, author);
                 });
             } else {
                 console.error(`Unable to bind to target! Debug Required.`);
@@ -62,16 +63,16 @@ async function playCharades() {
     }, 1000);
 }
 
-async function skipCharade(word) {
-    console.log("in skip charade");
+async function skipCharade(word, author) {
 
     playCharades(); // get new charade before resetting old charade in db
 
     word = word.toLowerCase();
-    const url = `http://127.0.0.1:3000/play/${word}`;
+    const url = `http://127.0.0.1:3000/${word}`;
 
     const data = {
-        word:       word
+        word:       word,
+        author:     author
     };
 
     const config = {
@@ -84,7 +85,6 @@ async function skipCharade(word) {
 
     const fetchResponse = await fetch(url, config);
     const jsonResponse = await fetchResponse.json();
-    console.log(jsonResponse.used); // undefined
 }
 
 
