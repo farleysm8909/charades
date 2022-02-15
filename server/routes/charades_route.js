@@ -5,7 +5,7 @@ import { Charade } from "../model/Charade.js";
 const router = express.Router();
 
 
-// CREATE
+/* ---------- CREATE ---------- */
 
 // create charade
 router.post("/", async (req, res) => {
@@ -15,6 +15,7 @@ router.post("/", async (req, res) => {
     }
 
     const charades = await Charade.find();
+    
     // traverse through charades to check if there is a naming conflict (words must be unique)
     for (let i = 0; i < charades.length; i++) {
         if (charades[i].word.toString().toLowerCase() == req.body.word.toString().toLowerCase()) {
@@ -40,7 +41,9 @@ router.post("/", async (req, res) => {
     }
 });
 
-// RETRIEVE
+
+
+/* ---------- RETRIEVE ---------- */
 
 // get all charades
 router.get("/", async (req, res) => {
@@ -65,6 +68,7 @@ router.get("/:author", async (req, res) => {
 // get random, unused charade
 router.get("/play/charade", async (req, res) => {
     try {
+        // code for if you want a specific author in addition to used = false
         // Get one random document matching {a: 10} from the mycoll collection.https://stackoverflow.com/questions/2824157/random-record-from-mongodb
         // let random_charade = await Charade.aggregate([ 
         //     {$match: {used: false}},
@@ -72,19 +76,39 @@ router.get("/play/charade", async (req, res) => {
         // ]);
         //let random_charade = await Charade.findOne({ $and: [{author: req.params.author.toLowerCase()}, {used: false}] });
         //console.log(random_charade.word);
+
+        // count the total number of charades that have not been played (used) yet
         let count = await Charade.find({used: false}).count();
-        const rand_index = Math.floor(Math.random()*count);
-        const unused_charades = await Charade.find({used: false});
-        let random_charade = unused_charades[rand_index];
-        random_charade.used = true;
-        const saved_charade = await random_charade.save();
-        res.status(200).send(saved_charade);
+
+        // if there is more than one charade, randomly pick from those available and return one to client
+        if (count > 1) {
+            const rand_index = Math.floor(Math.random()*count);
+            const unused_charades = await Charade.find({used: false});
+            let random_charade = unused_charades[rand_index];
+            random_charade.used = true;
+            const saved_charade = await random_charade.save();
+            res.status(200).send({charade: saved_charade, numCharades: count});
+        } 
+        // if there is exactly one charade remaining, remove skip btn functionality (flag to client)
+        else if (count === 1) {
+            let last_charade = await Charade.findOne({used: false});
+            last_charade.used = true;
+            const saved_charade = await last_charade.save();
+            res.status(200).send({charade: saved_charade, numCharades: count});
+        }
+        // if there are no more unused charades left in the database, alarm client
+        else {
+            res.status(200).send({numCharades: count, message: "No more charades left!"});
+        }
+        
     } catch(err) {
         res.status(404).send({error: "Random charade not found!"});
     }
 });
 
-// UPDATE
+
+
+/* ---------- UPDATE ---------- */
 
 // make used = false if skipped
 router.put("/:word", async (req, res) => {
@@ -103,7 +127,8 @@ router.put("/:word", async (req, res) => {
 });
 
 
-// DELETE 
+
+/* ---------- DELETE ---------- */ 
 
 // delete recipe by name (unique)
 router.delete("/:word", async (req, res) => { 
@@ -114,6 +139,7 @@ router.delete("/:word", async (req, res) => {
         res.status(404).send({error: "Charade doesn't exist!"});
     }
 });
+
 
 
 export {router as charadeRoutes};
